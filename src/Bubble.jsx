@@ -16,13 +16,15 @@ function Bubble() {
   const [size, setSize] = useState(getRandomSize());
   const [duration, setDuration] = useState(getRandomDuration());
   const bubbleRef = useRef(null);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     const bubble = bubbleRef.current;
     const handleAnimationIteration = () => {
-      setLeft(getRandomLeft()),
-      setSize(getRandomSize()),
+      setLeft(getRandomLeft());
+      setSize(getRandomSize());
       setDuration(getRandomDuration());
+      setKey(prev => prev + 1);
     };
     bubble.addEventListener('animationiteration', handleAnimationIteration);
     return () => {
@@ -32,6 +34,7 @@ function Bubble() {
 
   return (
     <div
+      key = {key}
       ref = {bubbleRef}
       className = "bubble"
       style = {{
